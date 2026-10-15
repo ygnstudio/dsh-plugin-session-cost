@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Session cost & balance",
+    "description": "Shows what the current session has cost and what the signed-in account has left, under the composer."
+  }
+}

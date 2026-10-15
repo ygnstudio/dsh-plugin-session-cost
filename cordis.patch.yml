@@ -1,0 +1,18 @@
+# This bundle's insert layer, applied after the shipped bundles and before the
+# profile's own cordis.patch.yml. The Host half folds session usage into the
+# `sessionCost` projection and reads the account balance; the Client half
+# renders one entry in the composer dock.
+- insert:
+    - id: session-cost
+      name: dsh-plugin-session-cost
+      # Services the Host half touches: the projection registry, the account
+      # provider (wallet balance), the tool registry, and the web server
+      # (ledger/pricing/export APIs for the settings page and the panel).
+      inject: [sessionProjections, deepseekAccount, tools, webServer, connection, credentials]
+      config:
+        # How often the account wallet is re-read, in milliseconds.
+        balancePollMs: 120000
+        # Startup-only price overrides, in CNY per million tokens. Normally
+        # left empty: the plugin fetches the official price list at launch and
+        # daily thereafter, falling back to its built-in table on failure.
+        prices: {}
